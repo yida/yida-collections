@@ -1,19 +1,17 @@
-DESCRIPTION = "ROS packaging system"
+DESCRIPTION = "Willow Garage low-level build system macros and infrastructure"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://../BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
 
-DEPENDS = "python-empy-native python-pyyaml-native python-nose-native rospkg-native gtest \
-           ros-fuerte-catkin \
-           ros-fuerte-rospack"
+DEPENDS = "python-empy-native python-pyyaml-native python-nose-native rospkg-native gtest"
 PR = "r0"
-PV = "1.8.9"
+PV = "0.4.4"
 
-inherit cmake
+inherit cmake native
 
-SRC_URI = "git://github.com/wg-debs/ros-release.git;protocol=git;tag=debian/ros-fuerte-ros_${PV}_lucid \
+SRC_URI = "git://github.com/ros/catkin.git;protocol=git;tag=${PV} \
            file://BSD-Willow.txt \
-           file://0001-add-modification.patch \
-           file://0002-set-no_cmake_find_root_path-to-find_program.patch"
+           file://0001-iIgnore-CMAKE_FIND_ROOT_PATH-when-searching-for-chec.patch \
+           file://0002-Use-CMAKE_FIND_ROOT_PATH-when-searching-for-include-.patch"
 
 S = "${WORKDIR}/git"
 
@@ -21,8 +19,6 @@ EXTRA_OECMAKE = "'-DCMAKE_INSTALL_PREFIX=/opt/ros/fuerte' '-DSETUPTOOLS_DEB_LAYO
 
 export STAGING_LIBDIR
 export STAGING_INCDIR
-
-INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 
 do_compile_prepend() {
       export BUILD_SYS="${BUILD_SYS}"
@@ -39,4 +35,3 @@ sysroot_stage_dirs_append() {
 }
 
 FILES_${PN} = "/opt/ros/fuerte/*"
-
