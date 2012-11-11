@@ -1,0 +1,27 @@
+From d72da7ea22e1fe02adcebfbfb57d42d7adf4d0e4 Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Sun, 11 Nov 2012 14:22:53 -0500
+Subject: [PATCH] add NO_CMAKE_FIND_ROOT_PATH to genpy-extra
+
+---
+ cmake/genpy-extras.cmake.in |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/cmake/genpy-extras.cmake.in b/cmake/genpy-extras.cmake.in
+index ee10a61..8e3d467 100644
+--- a/cmake/genpy-extras.cmake.in
++++ b/cmake/genpy-extras.cmake.in
+@@ -1,6 +1,8 @@
+ if(@PACKAGE_NAME@_SOURCE_DIR)
+-  find_program_required(GENMSG_PY_BIN genmsg_py.py PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
+-  find_program_required(GENSRV_PY_BIN gensrv_py.py PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
++  find_program_required(GENMSG_PY_BIN genmsg_py.py PATHS
++                        ${@PACKAGE_NAME@_SOURCE_DIR}/scripts NO_CMAKE_FIND_ROOT_PATH)
++  find_program_required(GENSRV_PY_BIN gensrv_py.py PATHS 
++                        ${@PACKAGE_NAME@_SOURCE_DIR}/scripts NO_CMAKE_FIND_ROOT_PATH)
+   set(GENPY_TEMPLATE_DIR ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
+ else()
+ 
+-- 
+1.7.9.5
+

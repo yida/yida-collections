@@ -1,0 +1,30 @@
+From 3a9f5774a1c3b446bad8278324069dafce7d7c50 Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Sun, 11 Nov 2012 14:29:34 -0500
+Subject: [PATCH 2/2] add MO_CMAKE_FIND_ROOT_PATH to rostest-extras
+
+---
+ tools/rostest/cmake/rostest-extras.cmake.in |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/rostest/cmake/rostest-extras.cmake.in b/tools/rostest/cmake/rostest-extras.cmake.in
+index bc5fdec..1e7dfd1 100644
+--- a/tools/rostest/cmake/rostest-extras.cmake.in
++++ b/tools/rostest/cmake/rostest-extras.cmake.in
+@@ -4,11 +4,11 @@ function(add_rostest file)
+   if(rostest_SOURCE_DIR)
+     find_program_required(ROSTEST_EXE rostest 
+                           PATHS @PROJECT_SOURCE_DIR@/scripts
+-                          NO_DEFAULT_PATH)
++                          NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+   else()
+     find_program_required(ROSTEST_EXE rostest 
+                           PATHS @CMAKE_INSTALL_PREFIX@/bin
+-                          NO_DEFAULT_PATH)
++                          NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+   endif()
+ 
+   parse_arguments(_rosunit "WORKING_DIRECTORY" "" ${ARGN})
+-- 
+1.7.9.5
+

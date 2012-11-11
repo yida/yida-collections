@@ -1,0 +1,30 @@
+From 3613e1955be82f4a4b28c4b90af36aee2a90efcf Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Fri, 9 Nov 2012 17:07:05 -0500
+Subject: [PATCH 2/2] set no_cmake_find_root_path to find_program
+
+---
+ tools/rosunit/cmake/rosunit-extras.cmake.in |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/tools/rosunit/cmake/rosunit-extras.cmake.in b/tools/rosunit/cmake/rosunit-extras.cmake.in
+index b9abdeb..c20d7f9 100644
+--- a/tools/rosunit/cmake/rosunit-extras.cmake.in
++++ b/tools/rosunit/cmake/rosunit-extras.cmake.in
+@@ -2,11 +2,11 @@ macro(rosunit_initialize_tests)
+   if(rosunit_SOURCE_DIR)
+     find_program_required(ROSUNIT_EXE rosunit
+                           PATHS @PROJECT_SOURCE_DIR@/scripts
+-                          NO_DEFAULT_PATH)
++                          NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+   else()
+     find_program_required(ROSUNIT_EXE rosunit
+                           PATHS @CMAKE_INSTALL_PREFIX@/bin
+-                          NO_DEFAULT_PATH)
++                          NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+   endif()
+ endmacro()
+ 
+-- 
+1.7.9.5
+

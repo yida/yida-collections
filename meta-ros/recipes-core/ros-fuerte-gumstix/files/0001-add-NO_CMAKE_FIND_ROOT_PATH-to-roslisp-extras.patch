@@ -1,0 +1,30 @@
+From 93a2a00eb13816a63acbf2b3c87cbdfba302b7de Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Sun, 11 Nov 2012 14:29:09 -0500
+Subject: [PATCH 1/2] add NO_CMAKE_FIND_ROOT_PATH to roslisp-extras
+
+---
+ clients/roslisp/cmake/roslisp-extras.cmake.in |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/clients/roslisp/cmake/roslisp-extras.cmake.in b/clients/roslisp/cmake/roslisp-extras.cmake.in
+index eea2dd9..87623df 100644
+--- a/clients/roslisp/cmake/roslisp-extras.cmake.in
++++ b/clients/roslisp/cmake/roslisp-extras.cmake.in
+@@ -4,10 +4,11 @@
+ 
+ if(roslisp_SOURCE_DIR)
+   find_program_required(ROSLISP_MAKE_NODE_BIN make_node_exec PATHS
+-    ${roslisp_SOURCE_DIR}/scripts)
++    ${roslisp_SOURCE_DIR}/scripts NO_CMAKE_FIND_ROOT_PATH)
+ else()
+   find_program_required(ROSLISP_MAKE_NODE_BIN make_node_exec PATHS
+-    @CMAKE_INSTALL_PREFIX@/share/common-lisp/ros/roslisp/scripts)
++    @CMAKE_INSTALL_PREFIX@/share/common-lisp/ros/roslisp/scripts
++    NO_CMAKE_FIND_ROOT_PATH)
+ endif()
+ 
+ macro(roslisp_package ARG_NAME)
+-- 
+1.7.9.5
+

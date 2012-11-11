@@ -1,0 +1,31 @@
+From 45d1f81bbc7b93a86942fef21db03a2b944fd8fe Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Fri, 9 Nov 2012 18:12:28 -0500
+Subject: [PATCH] find_program set no cmake_find_root_path
+
+---
+ cmake/genlisp-extras.cmake.in |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/cmake/genlisp-extras.cmake.in b/cmake/genlisp-extras.cmake.in
+index c681c6d..3a1843c 100644
+--- a/cmake/genlisp-extras.cmake.in
++++ b/cmake/genlisp-extras.cmake.in
+@@ -1,10 +1,12 @@
+ if(@PACKAGE_NAME@_SOURCE_DIR)
+-  find_program_required(GENLISP_BIN gen_lisp.py PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
++  find_program_required(GENLISP_BIN gen_lisp.py PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts
++                        NO_CMAKE_FIND_ROOT_PATH)
+   set(GENLISP_TEMPLATE_DIR ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
+ else()
+   find_program_required(GENLISP_BIN gen_lisp.py
+     PATHS @CMAKE_INSTALL_PREFIX@/share/genlisp/bin)
+-  set(GENLISP_TEMPLATE_DIR @CMAKE_INSTALL_PREFIX@/share/genlisp)
++  set(GENLISP_TEMPLATE_DIR @CMAKE_INSTALL_PREFIX@/share/genlisp
++                        NO_CMAKE_FIND_ROOT_PATH)
+ endif()
+ 
+ # Generate .msg or .srv -> .lisp
+-- 
+1.7.9.5
+

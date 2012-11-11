@@ -1,0 +1,28 @@
+From 2c94e538e3693548629ceb4c6365df38a578ed2f Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Sun, 11 Nov 2012 14:11:06 -0500
+Subject: [PATCH] add NO_CMAKE_FIND_ROOT_PATH to actionlib_msg-extra
+
+---
+ .../cmake/actionlib_msgs-extras.cmake.in           |    4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/actionlib_msgs/cmake/actionlib_msgs-extras.cmake.in b/actionlib_msgs/cmake/actionlib_msgs-extras.cmake.in
+index 30b39cd..04bd9aa 100644
+--- a/actionlib_msgs/cmake/actionlib_msgs-extras.cmake.in
++++ b/actionlib_msgs/cmake/actionlib_msgs-extras.cmake.in
+@@ -2,9 +2,9 @@
+ find_package(ROS COMPONENTS genmsg)
+ 
+ if(@PACKAGE_NAME@_SOURCE_DIR)
+-  find_program_required(GENACTION_BIN genaction.py PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
++  find_program_required(GENACTION_BIN genaction.py PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts NO_CMAKE_FIND_ROOT_PATH)
+ else()
+-  find_program_required(GENACTION_BIN genaction.py PATHS @CMAKE_INSTALL_PREFIX@/share/@PACKAGE_NAME@/scripts)
++  find_program_required(GENACTION_BIN genaction.py PATHS @CMAKE_INSTALL_PREFIX@/share/@PACKAGE_NAME@/scripts NO_CMAKE_FIND_ROOT_PATH)
+ endif()
+ 
+ macro(add_action_files)
+-- 
+1.7.9.5
+

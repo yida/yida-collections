@@ -1,0 +1,21 @@
+From 111007b112892f9d384f529f8ca2716752cbb78f Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Fri, 9 Nov 2012 13:49:30 -0500
+Subject: [PATCH 1/2] add modification
+
+---
+ AUTHORS |    1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/AUTHORS b/AUTHORS
+index 649e57d..3fcbf12 100644
+--- a/AUTHORS
++++ b/AUTHORS
+@@ -1,3 +1,4 @@
++
+ Morgan Quigley <mquigley@cs.stanford.edu>
+ 
+ Eric Berger <berger@willowgarage.com>
+-- 
+1.7.9.5
+

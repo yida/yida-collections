@@ -1,0 +1,31 @@
+From 0dd019abe78ee367e42f14ee3f0c957f486197fc Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Sun, 11 Nov 2012 14:16:27 -0500
+Subject: [PATCH] add NO_CMAKE_FIND_ROOT_PATH to gencpp-extras
+
+---
+ cmake/gencpp-extras.cmake.in |    5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/cmake/gencpp-extras.cmake.in b/cmake/gencpp-extras.cmake.in
+index 6068499..3723b8a 100644
+--- a/cmake/gencpp-extras.cmake.in
++++ b/cmake/gencpp-extras.cmake.in
+@@ -2,11 +2,12 @@
+ include_directories(${CMAKE_BINARY_DIR}/gen/cpp)
+ 
+ if(@PACKAGE_NAME@_SOURCE_DIR)
+-  find_program_required(GENCPP_BIN gen_cpp.py PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
++  find_program_required(GENCPP_BIN gen_cpp.py 
++    PATHS ${@PACKAGE_NAME@_SOURCE_DIR}/scripts NO_CMAKE_FIND_ROOT_PATH)
+   set(GENCPP_TEMPLATE_DIR ${@PACKAGE_NAME@_SOURCE_DIR}/scripts)
+ else()
+   find_program_required(GENCPP_BIN gen_cpp.py
+-    PATHS @CMAKE_INSTALL_PREFIX@/share/gencpp/bin)
++    PATHS @CMAKE_INSTALL_PREFIX@/share/gencpp/bin NO_CMAKE_FIND_ROOT_PATH)
+   set(GENCPP_TEMPLATE_DIR @CMAKE_INSTALL_PREFIX@/share/gencpp)
+ endif()
+ 
+-- 
+1.7.9.5
+

@@ -1,0 +1,55 @@
+From 4a3c4f18308c584633cb9812c82f19dfbe7b193c Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Sun, 11 Nov 2012 13:43:45 -0500
+Subject: [PATCH] use Use CMAKE_FIND_ROOT_PATH when searching for include
+ directories and extra
+
+---
+ cmake/templates/pkg-config.cmake.installable.in |    7 +++++--
+ cmake/tests.cmake.in                            |    4 ++--
+ 2 files changed, 7 insertions(+), 4 deletions(-)
+
+diff --git a/cmake/templates/pkg-config.cmake.installable.in b/cmake/templates/pkg-config.cmake.installable.in
+index bcc3c4b..bb64aa6 100644
+--- a/cmake/templates/pkg-config.cmake.installable.in
++++ b/cmake/templates/pkg-config.cmake.installable.in
+@@ -44,7 +44,8 @@ endif()
+ set(@PACKAGE_NAME@_CONFIG_INCLUDED TRUE)
+ 
+ if (NOT "X@PACKAGE_INCLUDE_DIRS@" STREQUAL "X")
+-  set(@PACKAGE_NAME@_INCLUDE_DIRS @PKG_INCLUDE_PREFIX@/include) #TODO FIX this.
++  find_file(@PACKAGE_NAME@_INCLUDE_DIRS include PATHS @PKG_INCLUDE_PREFIX@
++            NO_DEFAULT_PATH)
+ endif()
+ 
+ foreach(lib @PACKAGE_LIBRARIES@)
+@@ -75,5 +76,7 @@ if(@PACKAGE_NAME@_LIBRARIES)
+ endif()
+ 
+ foreach(extra @PACKAGE_CFG_EXTRAS@)
+-  include(@PKG_CMAKE_DIR@/${extra})
++  set(_extra_inc _extra_inc-NOTFOUND)
++  find_file(_extra_inc ${extra} PATHS @PKG_CMAKE_DIR@ NO_DEFAULT_PATH)
++  include(${_extra_inc})
+ endforeach()
+diff --git a/cmake/tests.cmake.in b/cmake/tests.cmake.in
+index 5710187..12ddcd1 100644
+--- a/cmake/tests.cmake.in
++++ b/cmake/tests.cmake.in
+@@ -30,11 +30,11 @@ function(catkin_initialize_tests)
+   if(catkin_SOURCE_DIR)
+     find_program_required(CHECK_TEST_RAN_EXE check_test_ran.py
+                           PATHS @PROJECT_SOURCE_DIR@/cmake
+-                          NO_DEFAULT_PATH)
++                          NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+   else()
+     find_program_required(CHECK_TEST_RAN_EXE check_test_ran.py
+                           PATHS @CMAKE_INSTALL_PREFIX@/share/catkin/cmake
+-                          NO_DEFAULT_PATH)
++                          NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+   endif()
+ endfunction()
+ 
+-- 
+1.7.9.5
+

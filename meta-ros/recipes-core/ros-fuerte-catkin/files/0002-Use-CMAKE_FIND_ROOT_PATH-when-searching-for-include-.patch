@@ -1,0 +1,42 @@
+From a2b6119179b54f0a4a759af3b5c99ff82fae87a9 Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Tue, 6 Nov 2012 20:51:47 -0500
+Subject: [PATCH 2/2] Use CMAKE_FIND_ROOT_PATH when searching for include
+ directories and extras
+
+Within installed config.cmake files, use find_file to locate the
+package include directory while cross-compiling. Similarly, use
+find_file to locate package config extras files within one of the
+configured CMAKE_FIND_ROOT_PATH cross-compilation root directories.
+
+--housel
+---
+ cmake/templates/pkg-config.cmake.installable.in |    7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/cmake/templates/pkg-config.cmake.installable.in b/cmake/templates/pkg-config.cmake.installable.in
+index bcc3c4b..bb64aa6 100644
+--- a/cmake/templates/pkg-config.cmake.installable.in
++++ b/cmake/templates/pkg-config.cmake.installable.in
+@@ -44,7 +44,8 @@ endif()
+ set(@PACKAGE_NAME@_CONFIG_INCLUDED TRUE)
+ 
+ if (NOT "X@PACKAGE_INCLUDE_DIRS@" STREQUAL "X")
+-  set(@PACKAGE_NAME@_INCLUDE_DIRS @PKG_INCLUDE_PREFIX@/include) #TODO FIX this.
++  find_file(@PACKAGE_NAME@_INCLUDE_DIRS include PATHS @PKG_INCLUDE_PREFIX@
++            NO_DEFAULT_PATH)
+ endif()
+ 
+ foreach(lib @PACKAGE_LIBRARIES@)
+@@ -75,5 +76,7 @@ if(@PACKAGE_NAME@_LIBRARIES)
+ endif()
+ 
+ foreach(extra @PACKAGE_CFG_EXTRAS@)
+-  include(@PKG_CMAKE_DIR@/${extra})
++  set(_extra_inc _extra_inc-NOTFOUND)
++  find_file(_extra_inc ${extra} PATHS @PKG_CMAKE_DIR@ NO_DEFAULT_PATH)
++  include(${_extra_inc})
+ endforeach()
+-- 
+1.7.9.5
+
