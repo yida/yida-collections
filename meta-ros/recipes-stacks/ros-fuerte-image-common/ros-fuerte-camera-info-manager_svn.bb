@@ -1,10 +1,11 @@
 require image_common.inc
 
-DESCRIPTION = "camera_calibration_parsers contains routines for reading and writing camera calibration parameters"
+DESCRIPTION = "This package provides a C++ interface for camera calibration information"
 HOMEPAGE = "http://www.ros.org/wiki/camera_info_manager?distro=fuerte"
-DEPENDS += "yaml-cpp"
-PR = "r3"
-SRCNAME="camera_calibration_parsers"
+DEPENDS += "ros-fuerte-camera-calibration-parsers"
+PR = "r2"
+
+SRCNAME="camera_info_manager"
 
 S = "${WORKDIR}/image_common/${SRCNAME}"
 
