@@ -1,0 +1,66 @@
+From ef3659ec32d519257da04f13600663ca9638c4ce Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Wed, 14 Nov 2012 16:03:42 -0500
+Subject: [PATCH 4/4] fix private and public.cmake for cross compilation
+
+---
+ core/rosbuild/private.cmake |    8 ++++----
+ core/rosbuild/public.cmake  |    2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/core/rosbuild/private.cmake b/core/rosbuild/private.cmake
+index 4eacebd..abd8221 100644
+--- a/core/rosbuild/private.cmake
++++ b/core/rosbuild/private.cmake
+@@ -179,7 +179,7 @@ macro(_rosbuild_add_rostest file)
+ 
+   # Check that the file exists, #1621
+   set(_file_name _file_name-NOTFOUND)
+-  find_file(_file_name ${file} ${PROJECT_SOURCE_DIR} /)
++  find_file(_file_name ${file} PATHS ${PROJECT_SOURCE_DIR} / NO_CMAKE_FIND_ROOT_PATH)
+   if(NOT _file_name)
+     message(FATAL_ERROR "Can't find rostest file \"${file}\"")
+   endif(NOT _file_name)
+@@ -219,7 +219,7 @@ macro(_rosbuild_add_pyunit file)
+ 
+   # Check that the file exists, #1621
+   set(_file_name _file_name-NOTFOUND)
+-  find_file(_file_name ${file} ${PROJECT_SOURCE_DIR} /)
++  find_file(_file_name ${file} PATHS ${PROJECT_SOURCE_DIR} / NO_CMAKE_FIND_ROOT_PATH)
+   if(NOT _file_name)
+     message(FATAL_ERROR "Can't find pyunit file \"${file}\"")
+   endif(NOT _file_name)
+@@ -256,7 +256,7 @@ endmacro(_rosbuild_add_pyunit)
+ macro(_rosbuild_add_roslaunch_check targetname file)
+   # Check that the file exists, #1621
+   set(_file_name _file_name-NOTFOUND)
+-  find_file(_file_name ${file} ${CMAKE_CURRENT_SOURCE_DIR} /)
++  find_file(_file_name ${file} PATHS ${CMAKE_CURRENT_SOURCE_DIR} / NO_CMAKE_FIND_ROOT_PATH)
+   if(NOT _file_name)
+     message(FATAL_ERROR "Can't find roslaunch file or directory \"${file}\"")
+   endif(NOT _file_name)
+@@ -345,7 +345,7 @@ macro(_rosbuild_add_library lib libname type)
+   get_target_property(_srclist ${lib} SOURCES)
+   foreach(_src ${_srclist})
+     set(_file_name _file_name-NOTFOUND)
+-    find_file(_file_name ${_src} ${CMAKE_CURRENT_SOURCE_DIR} /)
++    find_file(_file_name ${_src} PATHS ${CMAKE_CURRENT_SOURCE_DIR} / NO_CMAKE_FIND_ROOT_PATH)
+     if(NOT _file_name)
+       message("[rosbuild] Couldn't find source file ${_src}; assuming that it is in ${CMAKE_CURRENT_SOURCE_DIR} and will be generated later")
+       set(_file_name ${CMAKE_CURRENT_SOURCE_DIR}/${_src})
+diff --git a/core/rosbuild/public.cmake b/core/rosbuild/public.cmake
+index 2441963..21b7ba7 100644
+--- a/core/rosbuild/public.cmake
++++ b/core/rosbuild/public.cmake
+@@ -499,7 +499,7 @@ macro(rosbuild_add_executable exe)
+   get_target_property(_srclist ${exe} SOURCES)
+   foreach(_src ${_srclist})
+     set(_file_name _file_name-NOTFOUND)
+-    find_file(_file_name ${_src} ${CMAKE_CURRENT_SOURCE_DIR} /)
++    find_file(_file_name ${_src} PATHS ${CMAKE_CURRENT_SOURCE_DIR} / NO_CMAKE_FIND_ROOT_PATH)
+     if(NOT _file_name)
+       message("[rosbuild] Couldn't find source file ${_src}; assuming that it is in ${CMAKE_CURRENT_SOURCE_DIR} and will be generated later")
+       set(_file_name ${CMAKE_CURRENT_SOURCE_DIR}/${_src})
+-- 
+1.7.9.5
+
