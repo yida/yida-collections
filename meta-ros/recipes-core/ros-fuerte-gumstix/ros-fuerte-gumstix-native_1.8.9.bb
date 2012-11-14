@@ -3,7 +3,7 @@ LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
 
 DEPENDS = "python-empy python-pyyaml python-nose optik rospkg gtest log4cxx"
-PR = "r3"
+PR = "r2"
 PV = "1.8.9"
 
 
@@ -12,9 +12,9 @@ SRC_URI = "file://BSD-Willow.txt \
 
 S = "${WORKDIR}"
 
-inherit cmake
+inherit cmake native
 
-EXTRA_OECMAKE = "'-DCMAKE_INSTALL_PREFIX=/opt/ros/fuerte' '-DSETUPTOOLS_DEB_LAYOUT=OFF'"
+EXTRA_OECMAKE = "'-DCMAKE_INSTALL_PREFIX=${STAGING_DIR_NATIVE}/opt/ros/fuerte' '-DSETUPTOOLS_DEB_LAYOUT=OFF'"
 
 export STAGING_LIBDIR
 export STAGING_INCDIR
@@ -31,9 +31,14 @@ do_install_prepend() {
       export HOST_SYS="${HOST_SYS}"
 }
 
-sysroot_stage_dirs_append() {
-  sysroot_stage_dir $from/opt $to/opt
+sysroot_stage_dir_prepend() {
+  echo "$1"
+  echo "$2"
 }
 
-FILES_${PN} = "/opt/ros/fuerte/*"
+sysroot_stage_dirs_append() {
+  sysroot_stage_dir $from${STAGING_DIR_NATIVE}/opt $to${STAGING_DIR_NATIVE}/opt
+}
+
+FILES_${PN} = "${STAGING_DIR_NATIVE}/opt/ros/fuerte/*"
 

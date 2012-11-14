@@ -1,0 +1,24 @@
+From fca3cf1e13852434947671593c71acea27a6deb4 Mon Sep 17 00:00:00 2001
+From: Yida Zhang <hitzhangyd@gmail.com>
+Date: Tue, 13 Nov 2012 19:43:27 -0500
+Subject: [PATCH 2/2] skip rt check
+
+---
+ cmake/all.cmake |    1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/cmake/all.cmake b/cmake/all.cmake
+index aeab8a7..1af6c9d 100644
+--- a/cmake/all.cmake
++++ b/cmake/all.cmake
+@@ -44,7 +44,6 @@ foreach(f
+     platform/lsb
+     platform/ubuntu
+     tools/doxygen
+-    tools/rt
+     tools/threads
+     tools/gtest
+     )
+-- 
+1.7.9.5
+
