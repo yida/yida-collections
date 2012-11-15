@@ -3,23 +3,23 @@ require image_common.inc
 DESCRIPTION = "This package provides a C++ interface for camera calibration information"
 HOMEPAGE = "http://www.ros.org/wiki/camera_info_manager?distro=fuerte"
 DEPENDS += "ros-fuerte-camera-calibration-parsers"
-PR = "r2"
+PR = "r5"
 
 SRCNAME="camera_info_manager"
 
-S = "${WORKDIR}/image_common/${SRCNAME}"
+S = "${WORKDIR}/${SETNAME}/${SRCNAME}"
 
 
 inherit cmake
 
 INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
 
-ROS_PACKAGE_PATH =+ "${WORKDIR}/image_common:"
+ROS_PACKAGE_PATH += "${WORKDIR}/${SETNAME}:"
 ROS_STACKS_INSTALL_PREFIX = "${D}/${LOCAL_STACKS_PREFIX}"
 
 do_install() {
-  install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
-  install -m 0755 ${S}/bin/* ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
+#  install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
+#  install -m 0755 ${S}/bin/* ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
 
   install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/lib
   install -m 0755 ${S}/lib/* ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/lib
