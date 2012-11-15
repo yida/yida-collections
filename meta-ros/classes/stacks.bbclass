@@ -31,17 +31,25 @@ sysroot_stage_dirs_append() {
 FILES_${PN} = "/home/root/ros/*"
 
 do_install() {
-  install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
-  cp -rf ${S}/bin ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  if [ -d ${S}/bin ]; then
+    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
+    cp -rf ${S}/bin ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  fi
 
-  install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/lib
-  cp -rf ${S}/lib ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  if [ -d ${S}/lib ]; then
+    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/lib
+    cp -rf ${S}/lib ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  fi
 
-  install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/include
-  cp -rf ${S}/include ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  if [ -d ${S}/include ]; then
+    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/include
+    cp -rf ${S}/include ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  fi
 
-  install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/src
-  cp -rf ${S}/src ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  if [ -d ${S}/src ]; then
+    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/src
+    cp -rf ${S}/src ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  fi
   
   if [ -d ${S}/tests ]; then
     install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/tests
@@ -55,5 +63,4 @@ do_install() {
   echo 'include $(shell rospack find mk)/cmake.mk' > ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/Makefile
    
 }
-
 
