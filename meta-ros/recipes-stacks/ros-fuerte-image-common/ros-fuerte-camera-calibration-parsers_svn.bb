@@ -3,18 +3,10 @@ require image_common.inc
 DESCRIPTION = "camera_calibration_parsers contains routines for reading and writing camera calibration parameters"
 HOMEPAGE = "http://www.ros.org/wiki/camera_info_manager?distro=fuerte"
 DEPENDS += "yaml-cpp"
-PR = "r5"
+PR = "r7"
+
 SRCNAME="camera_calibration_parsers"
 
-S = "${WORKDIR}/${SETNAME}/${SRCNAME}"
-
-
-inherit cmake
-
-INHIBIT_PACKAGE_DEBUG_SPLIT = "1"
-
-ROS_PACKAGE_PATH += "${WORKDIR}/${SETNAME}:"
-ROS_STACKS_INSTALL_PREFIX = "${D}/${LOCAL_STACKS_PREFIX}"
 
 do_install() {
   install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
@@ -38,10 +30,4 @@ do_install() {
   
 }
 
-sysroot_stage_dirs_append() {
-  sysroot_stage_dir $from/home $to/home
-}
-
-
-FILES_${PN} = "/home/root/ros/*"
 
