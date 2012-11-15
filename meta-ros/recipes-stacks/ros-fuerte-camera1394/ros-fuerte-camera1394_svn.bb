@@ -2,7 +2,9 @@ DESCRIPTION = "ROS driver for devices supporting the IEEE 1394 Digital Camera (I
 HOMEPAGE = "http://www.ros.org/wiki/camera1394"
 LICENSE = "BSD,LGPL"
 LIC_FILES_CHKSUM = "file://../BSD-Willow.txt;md5=1a25bf2b127f8eb390aa2c2d5ca028d"
-DEPENDS = "libdc1394 ros-fuerte-gumstix ros-fuerte-camera-info-manager"
+DEPENDS = "libdc1394 ros-fuerte-gumstix ros-fuerte-camera-info-manager \
+            ros-fuerte-driver-base \
+            ros-fuerte-diagnostic-updater"
 
 SRCREV = "40248"
 PR = "r1"
