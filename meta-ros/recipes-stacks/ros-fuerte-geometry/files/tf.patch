@@ -1,0 +1,130 @@
+Index: geometry-1.8.2/tf/CMakeLists.txt
+===================================================================
+--- geometry-1.8.2-original/tf/CMakeLists.txt
++++ geometry-1.8.2/tf/CMakeLists.txt
+@@ -10,6 +10,12 @@ rosbuild_init()
+ 
+ rosbuild_add_boost_directories()
+ 
++#set the default path for built executables to the "bin" directory
++set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
++#set the default path for built libraries to the "lib" directory
++set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
++
++
+ rosbuild_genmsg()
+ rosbuild_gensrv()
+ 
+@@ -17,64 +23,64 @@ rosbuild_add_library(tf src/tf.cpp src/t
+ rosbuild_link_boost(tf thread signals)
+ 
+ # Debug
+-rosbuild_add_executable(bin/empty_listener src/empty_listener.cpp)
+-target_link_libraries(bin/empty_listener tf)
++rosbuild_add_executable(empty_listener src/empty_listener.cpp)
++target_link_libraries(empty_listener tf)
+ 
+-rosbuild_add_executable(bin/tf_echo src/tf_echo.cpp)
+-target_link_libraries(bin/tf_echo tf)
++rosbuild_add_executable(tf_echo src/tf_echo.cpp)
++target_link_libraries(tf_echo tf)
+ 
+-rosbuild_add_executable(bin/change_notifier src/change_notifier.cpp)
+-target_link_libraries(bin/change_notifier tf)
++rosbuild_add_executable(change_notifier src/change_notifier.cpp)
++target_link_libraries(change_notifier tf)
+ 
+-rosbuild_add_executable(bin/tf_monitor src/tf_monitor.cpp)
+-target_link_libraries(bin/tf_monitor tf)
++rosbuild_add_executable(tf_monitor src/tf_monitor.cpp)
++target_link_libraries(tf_monitor tf)
+ 
+-rosbuild_add_gtest(bin/tf_unittest test/tf_unittest.cpp)
+-target_link_libraries(bin/tf_unittest tf)
++rosbuild_add_gtest(tf_unittest test/tf_unittest.cpp)
++target_link_libraries(tf_unittest tf)
+ 
+-rosbuild_add_gtest(bin/test_transform_datatypes test/test_transform_datatypes.cpp)
+-target_link_libraries(bin/tf_unittest tf)
++rosbuild_add_gtest(test_transform_datatypes test/test_transform_datatypes.cpp)
++target_link_libraries(tf_unittest tf)
+ 
+-rosbuild_add_executable(bin/transform_listener_unittest test/transform_listener_unittest.cpp)
+-target_link_libraries(bin/transform_listener_unittest tf)
+-rosbuild_add_gtest_build_flags(bin/transform_listener_unittest)
++rosbuild_add_executable(transform_listener_unittest test/transform_listener_unittest.cpp)
++target_link_libraries(transform_listener_unittest tf)
++rosbuild_add_gtest_build_flags(transform_listener_unittest)
+ rosbuild_add_rostest(test/transform_listener_unittest.launch)
+ 
+ # Disabled because of changes in TransformStorage
+-#rosbuild_add_gtest_future(bin/tf_unittest_future test/tf_unittest_future.cpp)
+-#target_link_libraries(bin/tf_unittest_future tf)
++#rosbuild_add_gtest_future(tf_unittest_future test/tf_unittest_future.cpp)
++#target_link_libraries(tf_unittest_future tf)
+ 
+-rosbuild_add_gtest(bin/test_velocity test/velocity_test.cpp)
+-target_link_libraries(bin/test_velocity tf)
++rosbuild_add_gtest(test_velocity test/velocity_test.cpp)
++target_link_libraries(test_velocity tf)
+ 
+-#rosbuild_add_executable(bin/test_transform_twist test/transform_twist_test.cpp)
+-#target_link_libraries(bin/test_transform_twist tf)
+-#rosbuild_add_gtest_build_flags(bin/test_transform_twist)
++#rosbuild_add_executable(test_transform_twist test/transform_twist_test.cpp)
++#target_link_libraries(test_transform_twist tf)
++#rosbuild_add_gtest_build_flags(test_transform_twist)
+ #rosbuild_add_rostest(test/transform_twist_test.launch)
+ 
+-rosbuild_add_gtest(bin/cache_unittest test/cache_unittest.cpp)
+-target_link_libraries(bin/cache_unittest tf)
++rosbuild_add_gtest(cache_unittest test/cache_unittest.cpp)
++target_link_libraries(cache_unittest tf)
+ 
+-rosbuild_add_executable(bin/test_message_filter EXCLUDE_FROM_ALL test/test_message_filter.cpp)
+-rosbuild_declare_test(bin/test_message_filter)
+-rosbuild_add_gtest_build_flags(bin/test_message_filter)
+-target_link_libraries(bin/test_message_filter tf ${Boost_LIBRARIES})
++rosbuild_add_executable(test_message_filter EXCLUDE_FROM_ALL test/test_message_filter.cpp)
++rosbuild_declare_test(test_message_filter)
++rosbuild_add_gtest_build_flags(test_message_filter)
++target_link_libraries(test_message_filter tf ${Boost_LIBRARIES})
+ rosbuild_add_rostest(test/test_message_filter.xml)
+ 
+ ### Benchmarking
+-rosbuild_add_gtest_future(bin/tf_benchmark test/tf_benchmark.cpp)
+-target_link_libraries(bin/tf_benchmark tf)
++rosbuild_add_gtest_future(tf_benchmark test/tf_benchmark.cpp)
++target_link_libraries(tf_benchmark tf)
+ 
+-rosbuild_add_executable(bin/btTest test/quaternion.cpp)
+-rosbuild_add_executable(bin/testListener test/testListener.cpp)
+-rosbuild_add_gtest_build_flags(bin/testListener)
+-target_link_libraries(bin/testListener tf)
++rosbuild_add_executable(btTest test/quaternion.cpp)
++rosbuild_add_executable(testListener test/testListener.cpp)
++rosbuild_add_gtest_build_flags(testListener)
++target_link_libraries(testListener tf)
+ rosbuild_add_rostest(test/test_broadcaster.launch)
+                                  
+-rosbuild_add_executable(bin/testBroadcaster test/testBroadcaster.cpp)
+-target_link_libraries(bin/testBroadcaster tf)
+-rosbuild_add_executable(bin/static_transform_publisher src/static_transform_publisher.cpp)
+-target_link_libraries(bin/static_transform_publisher tf)
++rosbuild_add_executable(testBroadcaster test/testBroadcaster.cpp)
++target_link_libraries(testBroadcaster tf)
++rosbuild_add_executable(static_transform_publisher src/static_transform_publisher.cpp)
++target_link_libraries(static_transform_publisher tf)
+ 
+ 
+ find_package(PythonLibs REQUIRED)
+@@ -108,6 +114,6 @@ rosbuild_add_compile_flags(pytf_py ${SSE
+ rosbuild_add_pyunit(test/testPython.py)
+ rosbuild_link_boost(pytf_py thread signals)
+ 
+-rosbuild_add_executable(bin/speed_test EXCLUDE_FROM_ALL test/speed_test.cpp)
+-target_link_libraries(bin/speed_test tf)
+-rosbuild_declare_test(bin/speed_test)
++rosbuild_add_executable(speed_test EXCLUDE_FROM_ALL test/speed_test.cpp)
++target_link_libraries(speed_test tf)
++rosbuild_declare_test(speed_test)
