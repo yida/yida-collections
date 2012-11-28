@@ -30,37 +30,53 @@ sysroot_stage_dirs_append() {
 
 FILES_${PN} = "/home/root/ros/*"
 
+stacks_do_folder_install() {
+  foldername="$1"
+  if [ -d ${S}/${foldername} ]; then
+    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/${foldername}
+    cp -rf ${S}/${foldername} ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  fi
+}
+
+stacks_do_file_install() {
+  filename="$1"
+  if [ -e ${S}/${filename} ]; then
+    cp -f ${S}/${filename} ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+  fi
+}
+
 do_install() {
-  if [ -d ${S}/bin ]; then
-    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/bin
-    cp -rf ${S}/bin ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
-  fi
-
-  if [ -d ${S}/lib ]; then
-    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/lib
-    cp -rf ${S}/lib ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
-  fi
-
-  if [ -d ${S}/include ]; then
-    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/include
-    cp -rf ${S}/include ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
-  fi
-
-  if [ -d ${S}/src ]; then
-    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/src
-    cp -rf ${S}/src ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
-  fi
+  stacks_do_folder_install bin
+  stacks_do_folder_install lib
+  stacks_do_folder_install include
+  stacks_do_folder_install src
+  stacks_do_folder_install tests
+  stacks_do_folder_install cfg
+  stacks_do_folder_install cmake
+  stacks_do_folder_install msg
+  stacks_do_folder_install msg_gen
+  stacks_do_folder_install srv
+  stacks_do_folder_install srv_gen
+  stacks_do_folder_install scripts
+  stacks_do_folder_install src
+  stacks_do_folder_install templates
+  stacks_do_folder_install test
   
-  if [ -d ${S}/tests ]; then
-    install -d ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/tests
-    cp -rf ${S}/tests ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
-  fi
 
   touch ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/ROS_NOBUILD
-  cp -rf ${S}/CMakeLists.txt ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
-  cp -rf ${S}/mainpage.dox ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
-  cp -rf ${S}/manifest.xml ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/.
+
+  stacks_do_file_install CMakeLists.txt
+  stacks_do_file_install mainpage.dox
+  stacks_do_file_install manifest.xml
+  stacks_do_file_install stack.xml
+  stacks_do_file_install stack.yaml
+  stacks_do_file_install rosdoc.yaml
+
   echo 'include $(shell rospack find mk)/cmake.mk' > ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/Makefile
    
 }
+
+
+
+
 
