@@ -1,7 +1,7 @@
 DESCRIPTION = "This package provides a class to facilitate dynamic node reconfiguration."
 HOMEPAGE = "http://www.ros.org/wiki/dynamic_reconfigure"
 LICENSE = "BSD LGPL"
-LIC_FILES_CHKSUM = "file://../BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
+LIC_FILES_CHKSUM = "file://../../BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
 DEPENDS = "ros-fuerte-gumstix ros-fuerte-gumstix-native"
 
 SRCREV = ""
@@ -16,10 +16,8 @@ SRC_URI = "https://code.ros.org/svn/release/download/stacks/dynamic_reconfigure/
 SRC_URI[md5sum] = "a74cb548298d9d9f3a3e9037d52fb02d"
 SRC_URI[sha256sum] = "00040ea14e5334cfefb8274f6a4716892098f7cfba045ece7af32094754767ec"
 
-S = "${WORKDIR}/${SETNAME}/${SRCNAME}"
-
 cmake_do_configure_prepend() {
-  cp -rf ${WORKDIR}/${SRCNAME}-${PV}/* ${WORKDIR}/${SETNAME}/${SRCNAME}/.
+  cp -rf ${WORKDIR}/${SRCNAME}-${PV}/* ${WORKDIR}/source/${SETNAME}/${SRCNAME}/.
 }
 
 do_install_append() {
