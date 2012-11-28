@@ -1,7 +1,7 @@
 DESCRIPTION = "C++ implementation of bond, a mechanism for checking when another process has terminated."
 HOMEPAGE = "http://ros.org/wiki/bondcpp"
 LICENSE = "BSD LGPL"
-LIC_FILES_CHKSUM = "file://../../BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
+LIC_FILES_CHKSUM = "file://../../../BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
 DEPENDS = "ros-fuerte-gumstix ros-fuerte-gumstix-native"
 
 SETV = "1.6.3"
@@ -16,5 +16,5 @@ SRC_URI[sha256sum] = "91beefd6960d31d3f9b992aea4e3b6c7cfb8598abb4ecaa48c4d3dddb1
 SETNAME = "bond_core"
 
 cmake_do_configure_prepend() {
-  cp -rf ${WORKDIR}/${SETNAME}-${SETV}/* ${WORKDIR}/${SETNAME}/.
+  cp -rf ${WORKDIR}/${SETNAME}-${SETV}/* ${WORKDIR}/source/${SETNAME}/.
 }
