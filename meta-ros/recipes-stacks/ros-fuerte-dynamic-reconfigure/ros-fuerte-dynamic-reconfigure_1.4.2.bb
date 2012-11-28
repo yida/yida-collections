@@ -1,11 +1,11 @@
 DESCRIPTION = "This package provides a class to facilitate dynamic node reconfiguration."
 HOMEPAGE = "http://www.ros.org/wiki/dynamic_reconfigure"
-LICENSE = "BSD,LGPL"
+LICENSE = "BSD LGPL"
 LIC_FILES_CHKSUM = "file://../BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
 DEPENDS = "ros-fuerte-gumstix ros-fuerte-gumstix-native"
 
 SRCREV = ""
-PR = "r1"
+PR = "r3"
 SETNAME = ""
 SRCNAME="dynamic_reconfigure"
 
@@ -20,4 +20,11 @@ S = "${WORKDIR}/${SETNAME}/${SRCNAME}"
 
 cmake_do_configure_prepend() {
   cp -rf ${WORKDIR}/${SRCNAME}-${PV}/* ${WORKDIR}/${SETNAME}/${SRCNAME}/.
+}
+
+do_install_append() {
+  stacks_do_file_install catkin.cmake
+  stacks_do_file_install epydoc.config
+  stacks_do_file_install rosbuild.cmake
+  stacks_do_file_install setup.py
 }
