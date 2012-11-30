@@ -2,7 +2,8 @@ DESCRIPTION = "ROS for Gumstix"
 LICENSE = "BSD"
 LIC_FILES_CHKSUM = "file://BSD-Willow.txt;md5=51a25bf2b127f8eb390aa2c2d5ca028d"
 
-DEPENDS = "python-empy python-pyyaml python-nose optik rospkg gtest log4cxx boost-ros"
+DEPENDS = "python-empy-native python-pyyaml-native python-nose-native \
+            optik rospkg-native gtest log4cxx boost-ros"
 PR = "r3"
 PV = "1.8.9"
 
