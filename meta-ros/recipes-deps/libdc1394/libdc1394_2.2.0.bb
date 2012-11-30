@@ -12,5 +12,4 @@ SRC_URI = "git://libdc1394.git.sourceforge.net/gitroot/libdc1394/libdc1394;tag=V
 #build this:
 S = "${WORKDIR}/${PN}/${PN}"
 
-inherit autotools pkgconfig
-
+inherit autotools pkgconfig sdl
