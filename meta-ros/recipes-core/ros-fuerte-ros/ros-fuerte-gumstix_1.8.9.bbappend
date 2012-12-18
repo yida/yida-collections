@@ -1,6 +1,7 @@
 #DESCRIPTION = "ROS for Gumstix"
 
 VER_ros = "1.8.9"
+RDEPENDS += "optik python-compression python-xmlrpc python-subprocess python-shell python-pprint"
 
 SRC_URI += "git://github.com/wg-debs/ros-release.git;destsuffix=ros;name=ros \
             file://0001-add-modification.patch;apply=yes;patchdir=ros;pnum=1 \

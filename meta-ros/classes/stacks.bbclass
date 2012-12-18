@@ -44,6 +44,38 @@ stacks_do_file_install() {
 }
 
 do_install() {
+  if [ -d ${S}/bin ]; then
+    if [ "`ls -A "${S}/bin"`" ]; then
+      for file in ${S}/bin/* ; do
+        rpathstate="`objdump -x "$file"`"
+        case "$rpathstate" in
+          *RPATH*)
+            rpath="`chrpath -k "$file" | awk '{print $2}' | cut -b 7-`"
+            rootpath="${STAGING_DIR_HOST}"
+            destpath=""
+            rpath=`echo "${rpath//${rootpath}/${destpath}}"`
+            chrpath -k -r "$rpath" "$file";;
+        esac
+      done
+    fi
+  fi
+
+  if [ -d ${S}/lib ]; then
+    if [ "`ls -A "${S}/lib"`" ]; then
+      for file in ${S}/lib/* ; do
+        rpathstate="`objdump -x "$file"`"
+        case "$rpathstate" in
+          *RPATH*)
+            rpath="`chrpath -k "$file" | awk '{print $2}' | cut -b 7-`"
+            rootpath="${STAGING_DIR_HOST}"
+            destpath=""
+            rpath=`echo "${rpath//${rootpath}/${destpath}}"`
+            chrpath -k -r "$rpath" "$file";;
+        esac
+      done
+    fi
+  fi
+
   stacks_do_folder_install bin
   stacks_do_folder_install lib
   stacks_do_folder_install include
@@ -60,7 +92,6 @@ do_install() {
   stacks_do_folder_install templates
   stacks_do_folder_install test
   
-
   touch ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/ROS_NOBUILD
 
   stacks_do_file_install CMakeLists.txt
@@ -73,8 +104,5 @@ do_install() {
   echo 'include $(shell rospack find mk)/cmake.mk' > ${ROS_STACKS_INSTALL_PREFIX}/${SRCNAME}/Makefile
    
 }
-
-
-
 
 
